@@ -1,6 +1,6 @@
 # levibot
 tgbot for downloading videos from tik tok without watermark
-
+!!!read in edit mode!!!
 !!!settings for windows!!!
 
 1). First you need to install a virtual environment (venv):
