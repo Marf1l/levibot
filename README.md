@@ -1,5 +1,5 @@
 # levibot
-# !!!read in edit mode!!!
+# !!!read in code mode!!!
 tgbot for downloading videos from tik tok without watermark
 
 !!!settings for windows!!!
