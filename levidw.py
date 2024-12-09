@@ -3,7 +3,6 @@ import hashlib
 from telebot.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 import yt_dlp
 import os
-import hashlib  # Для генерации уникальных идентификаторов
 from flask import Flask, request
 
 
