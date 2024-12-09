@@ -1,4 +1,5 @@
 import telebot
+import hashlib
 from telebot.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 import yt_dlp
 import os
@@ -8,7 +9,7 @@ from flask import Flask, request
 
 
 # Создаем бота с твоим API токеном
-bot = telebot.TeleBot("APITOKEN")
+bot = telebot.TeleBot("YOUR_API_TOKEN")
 
 # Приветственное сообщение
 @bot.message_handler(commands=['start'])
@@ -57,10 +58,13 @@ def handle_format_selection(call):
 
 # Загрузка и отправка медиа без использования ffmpeg
 def download_and_send_media(chat_id, url, media_type='video'):
+    # Генерируем уникальное имя файла на основе URL
+    unique_filename = hashlib.md5(url.encode()).hexdigest()[:8]  # Первые 8 символов хеша
+    
     if media_type == 'video':
         ydl_opts = {
             'format': 'best[ext=mp4]/best[ext=webm]',  # Выбираем одиночный видеофайл в mp4, если доступен
-            'outtmpl': 'downloads/%(title)s.%(ext)s',
+            'outtmpl': f'downloads/{unique_filename}.%(ext)s',
             'noplaylist': True,  # Отключаем скачивание плейлистов
             'quiet': True,  # Отключаем лишние сообщения в консоли
             'postprocessors': [{
@@ -77,7 +81,7 @@ def download_and_send_media(chat_id, url, media_type='video'):
     else:  # media_type == 'audio'
         ydl_opts = {
             'format': 'bestaudio/best',
-            'outtmpl': 'downloads/%(title)s.%(ext)s',
+            'outtmpl': f'downloads/{unique_filename}.%(ext)s',
             'noplaylist': True,
             'quiet': True,
             'no_warnings': True,
